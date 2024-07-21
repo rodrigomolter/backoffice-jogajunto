@@ -26,11 +26,12 @@ class Product():
       "tenis_amarelo.png",
       "tenis_preto.png"
     ]
+
+    fake = Faker("pt_BR")
+
     selected_image = fake.random_element(elements=images)
     IMAGES_PATH = os.path.abspath(f"./media/{selected_image}")
 
-    fake = Faker("pt_BR")
-    
     self.name = name or fake.company()
     self.description = description or f"{fake.safe_color_name()} {fake.catch_phrase()} {fake.bs()}"
     self.category = category or fake.random_element(elements=categories)
