@@ -6,7 +6,7 @@ Funcionalidade: Registro de novo usuário no Backoffice
 
   Contexto: Usuário na tela de registro
     Dado que o usuário esta na página de registro de usuário
-  @skip
+  
   Cenário: Registro com sucesso
     Quando ele efetuar o cadastro com um email válido
     E a com uma senha válida
