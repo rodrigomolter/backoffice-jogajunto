@@ -25,10 +25,10 @@ class RegisterPage(BasePage):
     self.fill_password(password)
     self.fill_password_confirmation(password)
 
-  def registered_sucessfully(self) -> str:
+  def get_registered_sucessfully_message(self) -> str:
     return self.find_element(self.locators.MESSAGE_REGISTERED_SUCESSFULLY).text
 
-  def invalid_email_message(self) -> str:
+  def get_invalid_email_message(self) -> str:
     return self.find_element(self.locators.MESSAGE_INVALID_EMAIL).text
 
   def register_by_api(self, email: str = None, password: str = None) -> None:

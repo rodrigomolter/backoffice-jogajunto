@@ -19,11 +19,11 @@ def step_fill_valid_password(context):
 
 @then('deve receber a mensagem de erro "{message}"')
 def step_receive_warning_message(context, message):
-  assert message in context.page.invalid_email_message()
+  assert message in context.page.get_invalid_email_message()
 
 @then('deve receber a mensagem de sucesso "{message}"')
 def step_receive_success_message(context, message):
-  assert message in context.page.registered_sucessfully()
+  assert message in context.page.get_registered_sucessfully_message()
 
 @when('tentar efetuar cadastro com o email inválido "{invalid_email}"')
 def step_fill_invalid_password(context, invalid_email):
