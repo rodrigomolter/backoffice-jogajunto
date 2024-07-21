@@ -16,3 +16,11 @@ class LoginPageLocators():
 class ProductPageLocators():
   PRODUCT_LIST_HEADER = (By.CSS_SELECTOR, "header>h1")
   MESSAGE_LOGGED_IN_SUCESSFULLY = (By.XPATH, "//div[@role='status'][contains(.,'logado com sucesso')]")
+  NEW_PRODUCT_BTN = (By.CSS_SELECTOR, "header>button")
+  INPUT_PRODUCT_NAME = (By.NAME, "name")
+  INPUT_PRODUCT_DESCRIPTION = (By.NAME, "description")
+  # INPUT_PRODUCT_CATEGORY = (By.XPATH, "//input[@name='category'][@value='Roupas']")
+  INPUT_PRODUCT_PRICE = (By.NAME, "price")
+  INPUT_PRODUCT_IMAGE = (By.NAME, "image")
+  INPUT_PRODUCT_SHIPMENT = (By.NAME, "shipment")
+  NEW_PRODUCT_FORM = (By.TAG_NAME, "form")
