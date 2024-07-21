@@ -19,8 +19,8 @@ class Product():
     ]
     images = [
       "bone.png",
-      "camise_amarela.png",
-      "camise_preta.png",
+      "camisa_amarela.png",
+      "camisa_preta.png",
       "capa_celular_amarela.png",
       "casaco.png",
       "tenis_amarelo.png",
