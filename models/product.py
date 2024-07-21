@@ -2,14 +2,21 @@ from faker import Faker
 import os
 
 class Product():
-  def __init__(self, name: str = None, description: str = None, category: str = None, price: str = None, image: str = None, shipment: str = None) -> None:
+  def __init__(
+      self, 
+      name: str = None, 
+      description: str = None, 
+      category: str = None, 
+      price: str = None, 
+      image: str = None, 
+      shipment: str = None
+      ) -> None:
 
     categories = [
       "Roupas",
       "Calçados",
       "Acessorios"
     ]
-    IMAGES_PATH = os.path.abspath("./media")
     images = [
       "bone.png",
       "camise_amarela.png",
@@ -19,10 +26,14 @@ class Product():
       "tenis_amarelo.png",
       "tenis_preto.png"
     ]
+    selected_image = fake.random_element(elements=images)
+    IMAGES_PATH = os.path.abspath(f"./media/{selected_image}")
+
     fake = Faker("pt_BR")
+    
     self.name = name or fake.company()
     self.description = description or f"{fake.safe_color_name()} {fake.catch_phrase()} {fake.bs()}"
     self.category = category or fake.random_element(elements=categories)
     self.price = price or fake.random_int(min=1)
-    self.image = image or f"{IMAGES_PATH}\{fake.random_element(elements=images)}"
+    self.image = image or IMAGES_PATH
     self.shipment = shipment or fake.random_int(min=1)
