@@ -1,5 +1,6 @@
 from behave import given, when, then
 from pages.register_page import RegisterPage
+from models.user import User
 
 @given('que o usuário esta na página de registro de usuário')
 def step_open_register_page(context):
@@ -8,6 +9,7 @@ def step_open_register_page(context):
 
 @when('ele efetuar o cadastro com um email válido')
 def step_fill_valid_email(context):
+  context.user = User()
   context.page.fill_email(context.user.email)
 
 @when('a com uma senha válida')

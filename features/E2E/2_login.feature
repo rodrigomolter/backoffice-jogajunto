@@ -8,8 +8,8 @@ Funcionalidade: Login do usuário no Backoffice
     Dado que o usuário esteja na página de login
 
   Cenário: Login com sucesso
-    Quando digitar o email válido "teste@email.com" 
-    E preencher com a senha válida "123456"
+    Quando digitar o email válido 
+    E preencher com a senha válida
     E clicar no botão "Iniciar Sessão"
     Então deve ser redirecionado para a página de produto
     E receber a mensagem de sucesso "logado com sucesso"

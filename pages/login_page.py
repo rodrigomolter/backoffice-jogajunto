@@ -1,6 +1,8 @@
 from selenium import webdriver
 from pages.base_page import BasePage
 from utils.locators import LoginPageLocators
+from models.user import User
+from services.api_service import ApiService
 
 class LoginPage(BasePage):
   def __init__(self, webdriver: webdriver) -> None:
@@ -21,8 +23,9 @@ class LoginPage(BasePage):
     self.fill_password(password)
     self.submit()
 
-  def get_alert(self) -> str:
-    ...
-    
-  def is_auth(self, email: str) -> bool:
-    ...
+  def create_and_login_by_api(self, user : User, api: ApiService) -> None:
+    api.create_user(user)
+    token = api.login(user).json()["token"]
+    self.webdriver.execute_script('localStorage.setItem("auth", "true")')
+    self.webdriver.execute_script(f'localStorage.setItem("user", "\\"{user.email}\\"")')
+    self.webdriver.execute_script(f'localStorage.setItem("jwt", "{token}")')

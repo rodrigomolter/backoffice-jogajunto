@@ -30,3 +30,7 @@ class BasePage():
         WebDriverWait(self.webdriver, timeout).until(EC.presence_of_element_located(locator))
     except TimeoutException:
         print("\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> %s" %(locator[1]))
+
+  def delete_browser_data(self) -> None:
+    self.open()
+    self.webdriver.execute_script("window.localStorage.clear();")

@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from ipdb import spost_mortem
 from models.user import User
+from services.api_service import ApiService
 
 def before_all(context):
     browser = context.config.userdata.get("browser").lower()
@@ -24,6 +25,7 @@ def before_all(context):
             raise ValueError(f"Unsupported browser: {browser}")
         
     context.user = User()
+    context.api = ApiService()
 
 def before_scenario(context, scenario):
     if "skip" in scenario.effective_tags:
@@ -38,6 +40,7 @@ def before_feature(context, feature):
 
 def after_all(context):
     context.browser.quit()
+    context.api.close_session()
 
 def after_step(context, step):
     if context.config.userdata.getbool("debug") and step.status == "failed":

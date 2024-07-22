@@ -1,10 +1,16 @@
 from behave import given, when, then
 from pages.product_page import ProductPage
+from pages.login_page import LoginPage
 from models.product import Product
-from selenium.webdriver.common.by import By
+from models.user import User
 
 @given('que usuário esteja na página de cadastro')
 def step_open_product_page(context):
+  login_page = LoginPage(context.browser)
+  login_page.delete_browser_data()
+  context.user = User()
+  login_page.create_and_login_by_api(context.user, context.api)
+
   context.page = ProductPage(context.browser)
   context.page.open()
   context.page.open_add_product_modal()
