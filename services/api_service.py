@@ -1,10 +1,13 @@
 import requests
 from requests import Response
+import configparser
 from models.product import Product
 from models.user import User
 
 class ApiService:
-  BASE_URL = "https://apipf.jogajuntoinstituto.org"
+  config = configparser.ConfigParser()
+  config.read('behave.ini')
+  BASE_URL: str = config.get('behave.userdata', 'api_url')
 
   def __init__(self) -> None:
     self.session = requests.Session()

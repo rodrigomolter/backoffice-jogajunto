@@ -10,9 +10,9 @@ class BasePage():
   def __init__(self, webdriver, PATH) -> None:
     self.webdriver: webdriver = webdriver
     self.PATH: str = PATH
-    # self.BASE_URL: str = configparser.ConfigParser().read('behave.ini').get('behave.userdata', 'base_url')
-    self.BASE_URL: str = "https://projetofinal.jogajuntoinstituto.org"
-
+    config = configparser.ConfigParser()
+    config.read('behave.ini')
+    self.BASE_URL: str = config.get('behave.userdata', 'base_url')
 
   def find_element(self, locator: tuple[By, str]) -> WebElement:
     self.wait_element(locator)
