@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from pages.base_page import BasePage
 from utils.locators import ProductPageLocators
 from models.product import Product
@@ -12,6 +13,10 @@ class ProductPage(BasePage):
 
   def open_add_product_modal(self) -> None:
     self.find_element(self.locators.NEW_PRODUCT_BTN).click()
+
+  def close_add_product_modal(self) -> None:
+    self.find_element(self.locators.INPUT_PRODUCT_NAME).send_keys(Keys.ESCAPE)
+    self.wait_element(self.locators.PRODUCT_LIST_HEADER)
 
   def fill_product_name(self, name: str) -> None:
     self.find_element(self.locators.INPUT_PRODUCT_NAME).send_keys(name)
@@ -47,3 +52,10 @@ class ProductPage(BasePage):
   
   def get_logged_in_sucessfully_message(self) -> WebElement:
     return self.find_element(self.locators.MESSAGE_LOGGED_IN_SUCESSFULLY)
+
+  def get_products_list(self) -> list[WebElement]:
+    return self.find_elements(self.locators.PRODUCTS_LIST)
+
+  def get_all_products_names(self) -> list[str]:
+    names = [product.find_element(By.TAG_NAME, "h1").text for product in self.get_products_list()]
+    return names

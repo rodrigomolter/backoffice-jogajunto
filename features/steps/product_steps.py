@@ -1,6 +1,7 @@
 from behave import given, when, then
 from pages.product_page import ProductPage
 from models.product import Product
+from selenium.webdriver.common.by import By
 
 @given('que usuário esteja na página de cadastro')
 def step_open_product_page(context):
@@ -10,7 +11,8 @@ def step_open_product_page(context):
 
 @when('adicionar informações de produto na categoria "{category}"')
 def step_fill_product_form(context, category):
-  context.page.fill_product_form(Product(category=category))
+  context.product = Product(category=category)
+  context.page.fill_product_form(context.product)
 
 @when('clicar em enviar novo produto')
 def step_submit_new_product(context):
@@ -18,4 +20,6 @@ def step_submit_new_product(context):
 
 @then('deve ser criado visualização de novo produto na home page')
 def step_assert_new_product_in_product_list(context):
-  ...
+  context.page.close_add_product_modal()
+  products = context.page.get_all_products_names()
+  assert products[-1] == context.product.name

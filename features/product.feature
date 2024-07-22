@@ -7,7 +7,13 @@ Funcionalidade: Cadastro de produto no Backoffice
   Contexto: Usuário na tela de cadastro de produto
     Dado que usuário esteja na página de cadastro
 
-  Cenário: Produto adicionado com sucesso
-    Quando adicionar informações de produto na categoria "Roupas"
+  Esquema do Cenário: Produto adicionado com sucesso
+    Quando adicionar informações de produto na categoria "<categoria>"
     E clicar em enviar novo produto
     Então deve ser criado visualização de novo produto na home page
+
+    Exemplos: 
+    | categoria  |
+    | Roupas     |
+    | Calçados   |
+    | Acessorios |

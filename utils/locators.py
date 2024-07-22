@@ -24,3 +24,4 @@ class ProductPageLocators():
   INPUT_PRODUCT_IMAGE = (By.NAME, "image")
   INPUT_PRODUCT_SHIPMENT = (By.NAME, "shipment")
   NEW_PRODUCT_FORM = (By.TAG_NAME, "form")
+  PRODUCTS_LIST = (By.XPATH, "//*[@id='root']/header/section[2]/div/div/div/div")
