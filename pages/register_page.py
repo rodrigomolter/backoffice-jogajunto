@@ -30,6 +30,3 @@ class RegisterPage(BasePage):
 
   def get_invalid_email_message(self) -> str:
     return self.find_element(self.locators.MESSAGE_INVALID_EMAIL).text
-
-  def register_by_api(self, email: str = None, password: str = None) -> None:
-    ...

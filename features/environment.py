@@ -37,7 +37,6 @@ def before_feature(context, feature):
         feature.skip("Marked with @skip")
         return
 
-
 def after_all(context):
     context.browser.quit()
     context.api.close_session()

@@ -9,4 +9,4 @@ Funcionalidade: Login do usuário na API
     Quando o usuário faz uma requisição para "/login" passando o email e senha
     Então a resposta deve possuir o status code 200
     E a resposta deve conter o token de acesso
-    E o schema da resposta deve ser valido
+    E o schema da resposta de login deve ser valido

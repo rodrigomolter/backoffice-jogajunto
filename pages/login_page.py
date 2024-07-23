@@ -24,8 +24,12 @@ class LoginPage(BasePage):
     self.submit()
 
   def create_and_login_by_api(self, user : User, api: ApiService) -> None:
-    api.create_user(user)
-    token = api.login(user).json()["token"]
+    data = {
+      "email": user.email,
+      "password": user.password
+    }
+    api.create_user(data)
+    token = api.login(data).json()["token"]
     self.webdriver.execute_script('localStorage.setItem("auth", "true")')
     self.webdriver.execute_script(f'localStorage.setItem("user", "\\"{user.email}\\"")')
     self.webdriver.execute_script(f'localStorage.setItem("jwt", "{token}")')

@@ -1,13 +1,11 @@
 import requests
 from requests import Response
-import configparser
 from models.product import Product
 from models.user import User
+from utils.utils import Utils
 
 class ApiService:
-  config = configparser.ConfigParser()
-  config.read('behave.ini')
-  BASE_URL: str = config.get('behave.userdata', 'api_url')
+  BASE_URL: str = Utils.get_api_url()
 
   def __init__(self) -> None:
     self.session = requests.Session()
@@ -24,21 +22,13 @@ class ApiService:
   def close_session(self) -> None:
     self.session.close()
 
-  def create_user(self, user: User) -> Response:
+  def create_user(self, data: dict) -> Response:
     url = f"{self.BASE_URL}/register"
-    data = {
-        "email": user.email,
-        "password": user.password
-    } 
     response = self.session.post(url, json=data)
     return response
       
-  def login(self, user: User) -> Response:
+  def login(self, data: dict) -> Response:
     url = f"{self.BASE_URL}/login"
-    data = {
-        "email": user.email,
-        "password": user.password
-    } 
     response = self.session.post(url, json=data)
     return response
   

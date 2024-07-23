@@ -11,7 +11,7 @@ def step_open_register_page(context):
 @when('digitar o email válido')
 def step_fill_valid_email(context):
   context.user = User()
-  context.api.create_user(context.user)
+  context.api.create_user({"email": context.user.email, "password": context.user.password })
   context.page.fill_email(context.user.email)
 
 @when('preencher com a senha válida')

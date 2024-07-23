@@ -1,18 +1,14 @@
-from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-import configparser
-
+from utils.utils import Utils
 class BasePage():
   def __init__(self, webdriver, PATH) -> None:
     self.webdriver: webdriver = webdriver
     self.PATH: str = PATH
-    config = configparser.ConfigParser()
-    config.read('behave.ini')
-    self.BASE_URL: str = config.get('behave.userdata', 'base_url')
+    self.BASE_URL: str = Utils.get_app_url()
 
   def find_element(self, locator: tuple[By, str]) -> WebElement:
     self.wait_element(locator)
