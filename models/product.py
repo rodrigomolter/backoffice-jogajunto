@@ -1,6 +1,7 @@
 from faker import Faker
 import os
 
+fake = Faker("pt_BR")
 class Product:
   """
   Classe representando um produto com atributos gerados automaticamente ou fornecidos.
@@ -23,30 +24,69 @@ class Product:
       image: str = None, 
       shipment: str = None
       ) -> None:
+    
+    product = self.random_product()
 
-    categories = [
-      "Roupas",
-      "Calçados",
-      "Acessorios"
+    self.name = name or product['name']
+    self.description = description or product['description']
+    self.category = category or product['category']
+    self.price = price or product['price']
+    self.image = image or product['image']
+    self.shipment = shipment or product['shipment']
+
+  def random_product(self) -> dict:
+    products = [
+      {
+        "name": ["Boné", "Chapéu", "Gorra", "Cap"],
+        "description": ["Um boné estiloso", "Chapéu confortável", "Gorra descolada", "Cap moderno"],
+        "category": "Acessorios",
+        "image": "bone.png"
+      },
+      {
+        "name": ["Camisa Amarela", "Blusa Amarela", "Camiseta Amarela", "Top Amarelo"],
+        "description": ["Camisa de algodão amarela", "Blusa leve e fresca", "Camiseta vibrante", "Top para o verão"],
+        "category": "Roupas",
+        "image": "camisa_amarela.png"
+      },
+      {
+        "name": ["Camisa Preta", "Blusa Preta", "Camiseta Preta", "Top Preto"],
+        "description": ["Camisa básica preta", "Blusa clássica preta", "Camiseta essencial", "Top elegante"],
+        "category": "Roupas",
+        "image": "camisa_preta.png"
+      },
+      {
+        "name": ["Capa de Celular Amarela", "Capinha Amarela", "Proteção de Celular Amarela", "Case Amarelo"],
+        "description": ["Capa de celular resistente", "Capinha colorida e protetora", "Proteção amarela para o seu celular", "Case brilhante"],
+        "category": "Acessorios",
+        "image": "capa_celular_amarela.png"
+      },
+      {
+        "name": ["Casaco", "Jaqueta", "Blazer", "Sobretudo"],
+        "description": ["Casaco quente para o inverno", "Jaqueta confortável", "Blazer elegante", "Sobretudo para dias frios"],
+        "category": "Roupas",
+        "image": "casaco.png"
+      },
+      {
+        "name": ["Tênis Amarelo", "Tênis Esportivo Amarelo", "Shoe Amarelo", "Tênis Casual Amarelo"],
+        "description": ["Tênis esportivo vibrante", "Shoe amarelo para atividades físicas", "Tênis casual confortável", "Tênis para o dia a dia"],
+        "category": "Calçados",
+        "image": "tenis_amarelo.png"
+      },
+      {
+        "name": ["Tênis Preto", "Tênis Esportivo Preto", "Shoe Preto", "Tênis Casual Preto"],
+        "description": ["Tênis esportivo básico", "Shoe preto versátil", "Tênis casual para todas as ocasiões", "Tênis elegante e discreto"],
+        "category": "Calçados",
+        "image": "tenis_preto.png"
+      }
     ]
-    images = [
-      "bone.png",
-      "camisa_amarela.png",
-      "camisa_preta.png",
-      "capa_celular_amarela.png",
-      "casaco.png",
-      "tenis_amarelo.png",
-      "tenis_preto.png"
-    ]
-
-    fake = Faker("pt_BR")
-
-    selected_image = fake.random_element(elements=images)
-    IMAGES_PATH = os.path.abspath(f"./media/{selected_image}")
-
-    self.name = name or fake.company()
-    self.description = description or f"{fake.safe_color_name()} {fake.catch_phrase()} {fake.bs()}"
-    self.category = category or fake.random_element(elements=categories)
-    self.price = price or fake.random_int(min=1)
-    self.image = image or IMAGES_PATH
-    self.shipment = shipment or fake.random_int(min=1)
+    random = fake.random_element(elements=products)
+    
+    product = {
+        "name": f"{fake.random_element(elements=random['name'])} de {fake.bairro()}",
+        "description": fake.random_element(elements=random['description']),
+        "category": random['category'],
+        "price": fake.random_int(min=1),
+        "image": os.path.abspath(f"./media/{random['image']}"),
+        "shipment": fake.random_int(min=1)
+    }
+    return product
