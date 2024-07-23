@@ -25,7 +25,7 @@ class ProductPage(BasePage):
     self.find_element(self.locators.INPUT_PRODUCT_DESCRIPTION).send_keys(description)
     
   def fill_product_category(self, category: str) -> None:
-    self.find_element((By.XPATH, f"//input[@name='category'][@value='{category}']/ancestor::label")).click()
+    self.find_element((By.XPATH, f"//label[contains(.,'{category}')]")).click()
 
   def fill_product_price(self, price: str) -> None:
     self.find_element(self.locators.INPUT_PRODUCT_PRICE).send_keys(price)
