@@ -26,7 +26,7 @@ def step_submit_new_product(context):
 
 @then('deve ser criado visualização de novo produto na home page')
 def step_assert_new_product_in_product_list(context):
-  context.page.get_product_added_sucessfully_message()
   context.page.close_add_product_modal()
+  context.page.get_product_added_sucessfully_message()
   products = context.page.get_all_products_names()
   assert products[-1] == context.product.name
