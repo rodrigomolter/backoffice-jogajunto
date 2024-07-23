@@ -1,7 +1,19 @@
 from faker import Faker
 import os
 
-class Product():
+class Product:
+  """
+  Classe representando um produto com atributos gerados automaticamente ou fornecidos.
+
+  Args:
+    name (str, optional): Nome do produto. Se não fornecido, um nome falso será gerado.
+    description (str, optional): Descrição do produto. Se não fornecida, uma descrição falsa será gerada.
+    category (str, optional): Categoria do produto. Se não fornecida, uma categoria será selecionada.
+    price (str, optional): Preço do produto. Se não fornecido, um preço falso será gerado.
+    image (str, optional): Caminho da imagem do produto. Se não fornecido, uma imagem será selecionada.
+    shipment (str, optional): Informações de remessa do produto. Se não fornecida, informações falsas serão geradas.
+  """
+
   def __init__(
       self, 
       name: str = None, 
