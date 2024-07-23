@@ -1,15 +1,22 @@
 from behave import given, when, then
+from jsonschema import validate
 from pages.product_page import ProductPage
 from pages.login_page import LoginPage
 from models.product import Product
 from models.user import User
+from utils.utils import Utils
 
 @given('que usuário esteja na página de cadastro')
 def step_open_product_page(context):
   login_page = LoginPage(context.browser)
   login_page.delete_browser_data()
   context.user = User()
-  login_page.create_and_login_by_api(context.user, context.api)
+  data = {
+      "email": context.user.email,
+      "password": context.user.password
+    }
+  validate(instance=data, schema=Utils.json_to_dict("user_request.json"))
+  login_page.create_and_login_by_api(data, context.api)
 
   context.page = ProductPage(context.browser)
   context.page.open()

@@ -23,13 +23,12 @@ class LoginPage(BasePage):
     self.fill_password(password)
     self.submit()
 
-  def create_and_login_by_api(self, user : User, api: ApiService) -> None:
-    data = {
-      "email": user.email,
-      "password": user.password
-    }
-    api.create_user(data)
-    token = api.login(data).json()["token"]
+  def login_by_api(self, data: dict, api: ApiService) -> None:
+    token: str = api.login(data).json()["token"]
     self.webdriver.execute_script('localStorage.setItem("auth", "true")')
-    self.webdriver.execute_script(f'localStorage.setItem("user", "\\"{user.email}\\"")')
+    self.webdriver.execute_script(f'localStorage.setItem("user", "\\"{data.email}\\"")')
     self.webdriver.execute_script(f'localStorage.setItem("jwt", "{token}")')
+
+  def create_and_login_by_api(self, data: dict, api: ApiService) -> None:
+    api.create_user(data)
+    self.login_by_api(data, api)
