@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pages.base_page import BasePage
@@ -15,8 +16,7 @@ class ProductPage(BasePage):
     self.find_element(self.locators.NEW_PRODUCT_BTN).click()
 
   def close_add_product_modal(self) -> None:
-    self.find_element(self.locators.INPUT_PRODUCT_NAME).send_keys(Keys.ESCAPE)
-    self.wait_element(self.locators.PRODUCT_LIST_HEADER)
+    ActionChains(self.webdriver).send_keys(Keys.ESCAPE).perform()
 
   def fill_product_name(self, name: str) -> None:
     self.find_element(self.locators.INPUT_PRODUCT_NAME).send_keys(name)
