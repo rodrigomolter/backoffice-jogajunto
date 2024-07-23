@@ -15,5 +15,5 @@ Funcionalidade: Cadastro de produto no Backoffice
     Exemplos: 
     | categoria  |
     | Roupas     |
-    | Calçados   |
+    # | Calçados   |
     | Acessorios |
