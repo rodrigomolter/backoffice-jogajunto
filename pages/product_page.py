@@ -53,6 +53,9 @@ class ProductPage(BasePage):
   def get_logged_in_sucessfully_message(self) -> WebElement:
     return self.find_element(self.locators.MESSAGE_LOGGED_IN_SUCESSFULLY)
 
+  def get_product_added_sucessfully_message(self) -> WebElement:
+    return self.find_element(self.locators.PRODUCT_ADDED_SUCESSFULLY)
+
   def get_products_list(self) -> list[WebElement]:
     return self.find_elements(self.locators.PRODUCTS_LIST)
 
