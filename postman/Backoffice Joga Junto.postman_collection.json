@@ -1,0 +1,3535 @@
+{
+	"info": {
+		"_postman_id": "da21824b-b632-4032-ba6d-911ec3a16268",
+		"name": "Backoffice Joga Junto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33621843",
+		"_collection_link": "https://aspirantes-da-automao.postman.co/workspace/Rodrigo-Molter~72d946be-8169-4862-9d2d-4817608871b6/collection/29423847-da21824b-b632-4032-ba6d-911ec3a16268?action=share&source=collection_link&creator=33621843"
+	},
+	"item": [
+		{
+			"name": "API Status",
+			"item": [
+				{
+					"name": "API Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status should be UP\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Api is up and running!\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"var jwt = jsonResponse.token; \r",
+									"if (jwt) {\r",
+									"    pm.collectionVariables.set(\"jwt\", jwt);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+									"pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status should be UP\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.msg).to.eql(\"Usuário cadastrado com sucesso\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"{{newPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login new User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"var jwt = jsonResponse.token; \r",
+									"if (jwt) {\r",
+									"    pm.collectionVariables.set(\"jwt\", jwt);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"{{newPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomDepartment}} {{$randomColor}} {{$randomProductMaterial}} {{$randomProductAdjective}} {{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "{{$randomPrice}}",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "{{$randomProduct}}",
+									"type": "text"
+								},
+								{
+									"key": "shipment",
+									"value": "{{$randomPrice}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"if (pm.response.code !== 200) return;\r",
+									"if (jsonResponse.length == 0) return;\r",
+									"\r",
+									"var productId = jsonResponse.pop();\r",
+									"pm.collectionVariables.set(\"productId\", productId.idprodutos);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Last Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/:productId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "{{productId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "No Auth",
+					"item": [
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "All Products - No Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Product - Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/{{productId}}",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"{{productId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Invalid Auth",
+					"item": [
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "All Products - Invalid Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Invalid Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Product - Invalid Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/{{productId}}",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"{{productId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMwNywiaWF0IjoxNzIxMzcxMTQ2LCJleHAiOjE3MjE0NTc1NDZ9._DtjolP9jNct3yodr_5lG9KnfAkNhp-ZQuPHrRgY0B7",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Invalid Fields",
+					"item": [
+						{
+							"name": "Login",
+							"item": [
+								{
+									"name": "Login - Invalid Email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"email@email,com\",\r\n    \"password\": \"${{password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login - Invalid Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register",
+							"item": [
+								{
+									"name": "Register - Empty Password",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register - Invalid Email",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"newEmail = pm.collectionVariables.get(\"newEmail\");\r",
+													"\r",
+													"if (!newEmail) {\r",
+													"    pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"    pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"}\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"email@email,com\",\r\n    \"password\": \"{{newPassword}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register - Duplicated Email",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"newEmail = pm.collectionVariables.get(\"newEmail\");\r",
+													"\r",
+													"if (!newEmail) {\r",
+													"    pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"    pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"}\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Message should be Usuario ja existente com email informa\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.msg).to.eql(\"Usuario ja existente com email informado\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"password\": \"{{newPassword}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "Product - Invalid",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Long Name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "nome beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem  beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem beem longo",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Invalid Price",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "cem",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Invalid Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "100",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Invalid Shipment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "cem",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Invalid Image",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef4599f-2712-4970-baa3-492cb2882f71"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Missing Fields",
+					"item": [
+						{
+							"name": "Login",
+							"item": [
+								{
+									"name": "Login - No Email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login - No Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login - Empty JSON",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register",
+							"item": [
+								{
+									"name": "Register - Empty JSON",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"newEmail = pm.collectionVariables.get(\"newEmail\");\r",
+													"\r",
+													"if (!newEmail) {\r",
+													"    pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"    pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"}\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Message should be Usuario ja existente com email informa\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.msg).to.eql(\"Usuario ja existente com email informado\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register - No Email",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register - No Password",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{newEmail}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "Product - No Image",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": [],
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Shipment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Price",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Description",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - No Name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Empty Fields",
+					"item": [
+						{
+							"name": "Login",
+							"item": [
+								{
+									"name": "Login - Empty Email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"{{password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login - Empty Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/login",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register",
+							"item": [
+								{
+									"name": "Register - Empty Password",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{newEmail}}\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register - Empty Email",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"newEmail\",  pm.variables.replaceIn('{{$randomEmail}}'));\r",
+													"pm.collectionVariables.set(\"newPassword\",  pm.variables.replaceIn('{{$randomPassword}}'));\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"{{password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseURL}}/register",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "Product - Empty Image",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - All Fields Empty",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Only Image",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Empty Shipment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Empty Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Empty Price",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Empty Description",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "{{$randomProductName}}",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Product - Empty Name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{jwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "{{$randomProductAdjective}}",
+													"type": "text"
+												},
+												{
+													"key": "price",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "category",
+													"value": "{{$randomProduct}}",
+													"type": "text"
+												},
+												{
+													"key": "shipment",
+													"value": "{{$randomInt}}",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "postman-cloud:///1ef44a1c-c6e9-4f80-b41b-3e78380e9d65"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseURL}}",
+											"host": [
+												"{{baseURL}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Invalid Params",
+					"item": [
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "Delete a Product",
+									"item": [
+										{
+											"name": "Delete Product - Invalid Product Id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{jwt}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/teste",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"teste"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Clean Up",
+			"item": [
+				{
+					"name": "GET All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"pm.collectionVariables.set(\"allProducts\", jsonResponse);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CAUTION] DELETE All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"allProducts = pm.collectionVariables.get(\"allProducts\");\r",
+									"\r",
+									"if (allProducts && allProducts.length > 0) {\r",
+									"    pm.collectionVariables.set('productId', allProducts.pop().idprodutos);\r",
+									"    pm.execution.setNextRequest(pm.info.requestName);\r",
+									"    pm.collectionVariables.set('allProducts', allProducts);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/{{productId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://apipf.jogajuntoinstituto.org",
+			"type": "string"
+		},
+		{
+			"key": "jwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "teste@email.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "productId",
+			"value": ""
+		},
+		{
+			"key": "allProducts",
+			"value": ""
+		},
+		{
+			"key": "newEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "newPassword",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

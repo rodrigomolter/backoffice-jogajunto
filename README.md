@@ -32,6 +32,13 @@ Os testes de API seguem o mesmo fluxo de testar o *happy path*[^1], mas também 
  - Cadastro de Produto
  - Visualização de todos os produtos cadastrados
 
+### Testes no Postman
+Para complementar os testes automatizados, foi criada uma collection no Postman que cobre todos os fluxos possíveis da API, tanto positivos quanto negativos.
+
+<a href="https://app.getpostman.com/run-collection/29423847-be72a8cb-9dac-49d5-acda-af47c2667dcb?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29423847-be72a8cb-9dac-49d5-acda-af47c2667dcb%26entityType%3Dcollection%26workspaceId%3D634d18e6-9a9f-45a7-a562-69e352023655">
+  <img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">
+</a><br>
+
 # Executando o projeto
 Abaixo, um passo-a-passo de como executar os testes localmente.
 
